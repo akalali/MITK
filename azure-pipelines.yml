@@ -1,0 +1,20 @@
+trigger:
+- master
+
+jobs:
+- job: vs2017win2016
+  pool:
+    vmImage: 'vs2017-win2016 '
+  steps:
+
+  - task: CMake@1
+    displayName: 'Configure MITK'
+    inputs:
+      cmakeArgs: '.. -G"Visual Studio 15 2017 Win64"'
+
+  - task: MSBuild@1
+    displayName: 'Build MITK'
+    inputs:
+      solution: '**/*.sln'
+      msbuildArchitecture: 'x64'
+      configuration: 'release'
