@@ -2,7 +2,7 @@
 #mitkFunctionAddExternalProject(NAME DCMTK ON DOC "EXPERIMENTAL, superbuild only: Use DCMTK in MITK")
 #mitkFunctionAddExternalProject(NAME OpenIGTLink OFF)
 #mitkFunctionAddExternalProject(NAME tinyxml ON ADVANCED)
-#mitkFunctionAddExternalProject(NAME GDCM ON ADVANCED)
+mitkFunctionAddExternalProject(NAME GDCM ON ADVANCED)
 #mitkFunctionAddExternalProject(NAME Eigen ON ADVANCED DOC "Use the Eigen library")
 #mitkFunctionAddExternalProject(NAME ANN ON ADVANCED DOC "Use Approximate Nearest Neighbor Library")
 #mitkFunctionAddExternalProject(NAME CppUnit ON ADVANCED DOC "Use CppUnit for unit tests")
