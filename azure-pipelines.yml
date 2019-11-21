@@ -3,6 +3,7 @@ trigger:
 
 jobs:
 - job: vs2017win2016
+  timeoutInMinutes: 0
   pool:
     vmImage: 'vs2017-win2016 '
   steps:
