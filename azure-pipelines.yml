@@ -20,10 +20,10 @@ jobs:
 #      msbuildArchitecture: 'x64'
 #      configuration: 'release'
 
-- job: Ubuntu
+- job: macOS
   timeoutInMinutes: 0
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'macOS-10.13'
 
   steps:
   - task: CMake@1
