@@ -17,7 +17,7 @@ mitkFunctionAddExternalProject(NAME Boost ON NO_CACHE)
 mitkFunctionAddExternalProject(NAME ZLIB OFF ADVANCED)
 mitkFunctionAddExternalProject(NAME cpprestsdk OFF DEPENDS Boost ZLIB ADVANCED)
 mitkFunctionAddExternalProject(NAME ACVD OFF DOC "Use Approximated Centroidal Voronoi Diagrams")
-#mitkFunctionAddExternalProject(NAME DCMQI ON DEPENDS DCMTK ITK DOC "Use dcmqi in MITK")
+mitkFunctionAddExternalProject(NAME DCMQI ON DEPENDS DCMTK ITK DOC "Use dcmqi in MITK")
 mitkFunctionAddExternalProject(NAME MatchPoint OFF ADVANCED DEPENDS ITK DOC "Use the MatchPoint translation image registration library")
 
 if(MITK_USE_Qt5)
