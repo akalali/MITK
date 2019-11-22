@@ -2,20 +2,36 @@ trigger:
 - master
 
 jobs:
-- job: vs2017win2016
+#- job: vs2017win2016
+#  timeoutInMinutes: 0
+#  pool:
+#    vmImage: 'vs2017-win2016 '
+#  steps:
+
+#  - task: CMake@1
+#    displayName: 'Configure MITK'
+#    inputs:
+#      cmakeArgs: '.. -G"Visual Studio 15 2017 Win64" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
+
+#  - task: MSBuild@1
+#    displayName: 'Build MITK'
+#    inputs:
+#      solution: '**/*.sln'
+#      msbuildArchitecture: 'x64'
+#      configuration: 'release'
+
+- job: Ubuntu
   timeoutInMinutes: 0
   pool:
-    vmImage: 'vs2017-win2016 '
-  steps:
+    vmImage: 'ubuntu-18.04'
 
+  steps:
   - task: CMake@1
     displayName: 'Configure MITK'
     inputs:
-      cmakeArgs: '.. -G"Visual Studio 15 2017 Win64" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
+      cmakeArgs: '..  -G"Unix Makefiles" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
 
-  - task: MSBuild@1
+  - task: CMake@1
     displayName: 'Build MITK'
     inputs:
-      solution: '**/*.sln'
-      msbuildArchitecture: 'x64'
-      configuration: 'release'
+      cmakeArgs: '--build . --config Release $(JFlag)'
