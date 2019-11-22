@@ -1,6 +1,9 @@
 trigger:
 - master
 
+variables:
+  JFlag: '-j 8'
+
 jobs:
 #- job: vs2017win2016
 #  timeoutInMinutes: 0
