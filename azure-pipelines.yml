@@ -3,38 +3,77 @@ trigger:
 
 variables:
   JFlag: '-j 8'
+  Makefiles: Unix Makefiles
+  VisualStudio: Visual Studio 15 2017 Win64
 
 jobs:
-#- job: vs2017win2016
-#  timeoutInMinutes: 0
-#  pool:
-#    vmImage: 'vs2017-win2016 '
-#  steps:
-
-#  - task: CMake@1
-#    displayName: 'Configure MITK'
-#    inputs:
-#      cmakeArgs: '.. -G"Visual Studio 15 2017 Win64" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
-
-#  - task: MSBuild@1
-#    displayName: 'Build MITK'
-#    inputs:
-#      solution: '**/*.sln'
-#      msbuildArchitecture: 'x64'
-#      configuration: 'release'
-
-- job: macOS
+# WINDOWS JOB DEFINITION
+- job:
+  displayName: Windows
   timeoutInMinutes: 0
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'vs2017-win2016 '
+  strategy:
+    matrix:
+      64-bit Debug:
+        BuildType: Debug
+      64-bit Release:
+        BuildType: Release
 
   steps:
   - task: CMake@1
-    displayName: 'Configure MITK'
+    displayName: 'Configure MITK for $(BuildType)'
     inputs:
-      cmakeArgs: '..  -G"Unix Makefiles" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
+      cmakeArgs: '.. -G"$(VisualStudio)" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_CTK:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
 
   - task: CMake@1
-    displayName: 'Build MITK'
+    displayName: 'Build MITK for $(BuildType)'
     inputs:
-      cmakeArgs: '--build . --config Release $(JFlag)'
+      cmakeArgs: '--build . --target ALL_BUILD --config $(BuildType)'
+
+# MACOS JOB DEFINITION
+- job:
+  displayName: macOS
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'macOS-10.13'
+  strategy:
+    matrix:
+      Debug:
+        BuildType: Debug
+      Release:
+        BuildType: Release
+
+  steps:
+  - task: CMake@1
+    displayName: 'Configure MITK for $(BuildType)'
+    inputs:
+      cmakeArgs: '..  -G"$(Makefiles)" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_CTK:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
+
+  - task: CMake@1
+    displayName: 'Build MITK for $(BuildType)'
+    inputs:
+      cmakeArgs: '--build . --config $(BuildType) $(JFlag)'
+
+# LINUX JOB DEFINITION
+- job:
+  displayName: Ubuntu
+  pool:
+    vmImage: 'ubuntu-18.04'
+  strategy:
+    matrix:
+      Debug:
+        BuildType: Debug
+      Release:
+        BuildType: Release
+
+  steps:
+  - task: CMake@1
+    displayName: 'Configure MITK for $(BuildType)'
+    inputs:
+      cmakeArgs: '..  -G"$(Makefiles)" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_CTK:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
+
+  - task: CMake@1
+    displayName: 'Build MITK for $(BuildType)'
+    inputs:
+      cmakeArgs: '--build . --config $(BuildType) $(JFlag)'
