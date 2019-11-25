@@ -76,6 +76,19 @@ jobs:
       sudo apt -y install cmake
       whereis cmake
       ls -l
+      cd ..
+      ls -l /usr/bin/cmake
+      ls -l /usr/lib/cmake
+      ls -l /usr/local/bin/cmake
+      ls -l /usr/share/cmake
+      cd /usr/bin/cmake
+      cmake --version
+      cd /usr/lib/cmake
+      cmake --version
+      cd /usr/local/bin/cmake
+      cmake --version
+      cd /usr/share/cmake
+      cmake --version
     displayName: 'Update CMake'
 
   - task: CMake@1
