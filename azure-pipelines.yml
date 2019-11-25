@@ -69,12 +69,12 @@ jobs:
 
   steps:
   - script: |
-      sudo apt remove --purge --auto-remove cmake
+      sudo apt remove -y --purge --auto-remove cmake
       wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
       sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
       sudo apt update
       sudo apt -y install cmake
-      cmake --version
+      whereis cmake
     displayName: 'Update CMake'
 
   - task: CMake@1
