@@ -69,7 +69,7 @@ jobs:
 
   steps:
   - script: |
-      version=3.15
+      version=3.14
       build=5
       mkdir ../temp
       cd ../temp
@@ -79,10 +79,13 @@ jobs:
       ./bootstrap
       make -j$(nproc)
       sudo make install
+    displayName: 'Download and update CMake'
 
-      whereis cmake
-      cmake --version
-    displayName: 'Update CMake'
+  - script: |
+      sudo apt install libglu1-mesa-dev
+      sudo apt update
+      sudo apt install libglu1-mesa-dev mesa-common-dev
+    displayName: 'Install prerequisites'
 
   - task: CMake@1
     displayName: 'Configure MITK for $(BuildType)'
