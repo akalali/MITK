@@ -69,26 +69,18 @@ jobs:
 
   steps:
   - script: |
-      sudo apt remove -y --purge --auto-remove cmake
-      wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
-      sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
-      sudo apt update
-      sudo apt -y install cmake
+      version=3.15
+      build=5
+      mkdir ../temp
+      cd ../temp
+      wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
+      tar -xzvf cmake-$version.$build.tar.gz
+      cd cmake-$version.$build/
+      ./bootstrap
+      make -j$(nproc)
+      sudo make install
+
       whereis cmake
-      ls -l
-      cd ..
-      ls -l
-      ls -l /usr/bin/cmake
-      ls -l /usr/lib/cmake
-      ls -l /usr/local/bin/cmake
-      ls -l /usr/share/cmake
-      cd /usr/bin/cmake
-      cmake --version
-      cd /usr/lib/cmake
-      cmake --version
-      cd /usr/local/bin/cmake
-      cmake --version
-      cd /usr/share/cmake
       cmake --version
     displayName: 'Update CMake'
 
