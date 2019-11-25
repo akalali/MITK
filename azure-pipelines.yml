@@ -58,6 +58,7 @@ jobs:
 # LINUX JOB DEFINITION
 - job:
   displayName: Ubuntu
+  timeoutInMinutes: 0
   pool:
     vmImage: 'ubuntu-18.04'
   strategy:
