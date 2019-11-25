@@ -77,6 +77,7 @@ jobs:
       whereis cmake
       ls -l
       cd ..
+      ls -l
       ls -l /usr/bin/cmake
       ls -l /usr/lib/cmake
       ls -l /usr/local/bin/cmake
