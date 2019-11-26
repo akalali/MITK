@@ -84,13 +84,13 @@ jobs:
     displayName: 'Download and update CMake'
 
   - script: |
-      sudo pt update
+      sudo apt update
       sudo apt install libglu1-mesa-dev mesa-common-dev
     displayName: 'Install prerequisites'
 
   - script: |
-      wget https://code.qt.io/cgit/qbs/qbs.git/tree/scripts/install-qt.sh
-      sudo chmod +x ./install-qt-sh
+      wget https://code.qt.io/cgit/qbs/qbs.git/plain/scripts/install-qt.sh
+      sudo chmod +x ./install-qt.sh
       sudo ./install-qt.sh --version $(Qt) qtbase qtwebengine qtscript
     displayName: 'Install Qt'
 
