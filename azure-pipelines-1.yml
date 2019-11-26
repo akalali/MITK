@@ -9,8 +9,8 @@ pool:
 
 steps:
 - script: |
-    ls -l
     mkdir Qt
+    ls -l
     wget https://code.qt.io/cgit/qbs/qbs.git/plain/scripts/install-qt.sh
     sudo chmod +x ./install-qt.sh
     sudo ./install-qt.sh --directory $(Agent.BuildDirectory)/Qt --version $(Qt) qtbase qtwebengine qtscript
