@@ -80,17 +80,18 @@ jobs:
       cd cmake-$version.$build/
       ./bootstrap
       make -j$(nproc)
-      make install
+      sudo make install
     displayName: 'Download and update CMake'
 
   - script: |
-      apt update
-      apt install libglu1-mesa-dev mesa-common-dev
+      sudo pt update
+      sudo apt install libglu1-mesa-dev mesa-common-dev
     displayName: 'Install prerequisites'
 
   - script: |
       wget https://code.qt.io/cgit/qbs/qbs.git/tree/scripts/install-qt.sh
-      ./install-qt-sh --version $(Qt) qtbase qtwebengine qtscript
+      sudo chmod +x ./install-qt-sh
+      sudo ./install-qt.sh --version $(Qt) qtbase qtwebengine qtscript
     displayName: 'Install Qt'
 
   - task: CMake@1
