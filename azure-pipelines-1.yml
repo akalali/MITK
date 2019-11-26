@@ -1,0 +1,14 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: |
+    wget https://code.qt.io/cgit/qbs/qbs.git/plain/scripts/install-qt.sh
+    sudo chmod +x ./install-qt.sh
+    sudo ./install-qt.sh --version $(Qt) qtbase qtwebengine qtscript
+    cd /opt/Qt
+    ls -l
+  displayName: 'Install Qt'
