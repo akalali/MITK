@@ -5,6 +5,7 @@ variables:
   JFlag: '-j 8'
   Makefiles: Unix Makefiles
   VisualStudio: Visual Studio 15 2017 Win64
+  Qt: 5.12.6
 
 jobs:
 # WINDOWS JOB DEFINITION
@@ -79,14 +80,18 @@ jobs:
       cd cmake-$version.$build/
       ./bootstrap
       make -j$(nproc)
-      sudo make install
+      make install
     displayName: 'Download and update CMake'
 
   - script: |
-      sudo apt install libglu1-mesa-dev
-      sudo apt update
-      sudo apt install libglu1-mesa-dev mesa-common-dev
+      apt update
+      apt install libglu1-mesa-dev mesa-common-dev
     displayName: 'Install prerequisites'
+
+  - script: |
+      wget https://code.qt.io/cgit/qbs/qbs.git/tree/scripts/install-qt.sh
+      ./install-qt-sh --version $(Qt) qtbase qtwebengine qtscript
+    displayName: 'Install Qt'
 
   - task: CMake@1
     displayName: 'Configure MITK for $(BuildType)'
