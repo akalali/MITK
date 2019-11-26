@@ -1,6 +1,9 @@
 trigger:
 - master
 
+variables:
+  Qt: 5.12.6
+
 pool:
   vmImage: 'ubuntu-latest'
 
