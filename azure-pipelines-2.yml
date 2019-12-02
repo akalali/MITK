@@ -6,6 +6,8 @@ variables:
   windowsFile: qt-unified-windows-x86-online.exe
   macCompiler: clang_64
   macFile: qt-unified-mac-x64-online.dmg
+  linuxCompiler: gcc_64
+  linuxFile: qt-unified-linux-x64-online.run
   Qt: 5.12.6
   script: unattended_env.qs
 
@@ -43,5 +45,23 @@ jobs:
       export QT_COMPONENTS=$(macCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       ./$(macFile) --platform minimal --no-force-installations --verbose --script $(script)
+    workingDirectory: '$(Agent.BuildDirectory)'
+    displayName: 'Download and install Qt'
+
+    # LINUX JOB DEFINITION
+- job:
+  displayName: Ubuntu
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-18.04'
+
+  steps:
+  - script: |
+      mkdir Qt
+      curl -O https://download.qt.io/official_releases/online_installers/$(linuxFile)
+      export QT_VERSION=$(Qt)
+      export QT_COMPONENTS=$(linuxCompiler),qtscript, qtwebengine
+      export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
+      ./$(linuxFile) --platform minimal --no-force-installations --verbose --script $(script)
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
