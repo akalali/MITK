@@ -4,6 +4,8 @@ trigger:
 variables:
   windowsCompiler: win64_msvc2017_64
   windowsFile: qt-unified-windows-x86-online.exe
+  macCompiler: clang_64
+  macFile: qt-unified-mac-x64-online.dmg
   Qt: 5.12.6
   script: unattended_env.qs
 
@@ -22,8 +24,24 @@ jobs:
       set QT_VERSION=$(Qt)
       set QT_COMPONENTS=$(windowsCompiler),qtscript, qtwebengine
       set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
-      ls -l
-      dir
       $(windowsFile) --platform minimal --no-force-installations --verbose --script $(script)
+    workingDirectory: '$(Agent.BuildDirectory)'
+    displayName: 'Download and install Qt'
+
+# MACOS JOB DEFINITION
+- job:
+  displayName: macOS
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - script: |
+      mkdir Qt
+      curl -O https://download.qt.io/official_releases/online_installers/$(macFile)
+      export QT_VERSION=$(Qt)
+      export QT_COMPONENTS=$(macCompiler),qtscript, qtwebengine
+      export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
+      ./$(macFile) --platform minimal --no-force-installations --verbose --script $(script)
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
