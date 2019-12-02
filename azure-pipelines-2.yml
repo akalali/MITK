@@ -5,6 +5,7 @@ variables:
   windowsCompiler: win64_msvc2017_64
   windowsFile: qt-unified-windows-x86-online.exe
   Qt: 5.12.6
+  script: unattended_env.qs
 
 jobs:
 # WINDOWS JOB DEFINITION
@@ -17,10 +18,10 @@ jobs:
   steps:
   - script: |
       mkdir Qt
-      curl -O https://download.qt.io/official_releases/online_installers/$windowsFile
-      set QT_VERSION=$Qt
-      set QT_COMPONENTS=$windowsCompiler,qtscript, qtwebengine
-      set QT_TARGET_DIR=$Agent.BuildDirectory/Qt
-      $windowsFile --platform minimal --no-force-installations --verbose --script unattended_env.qs
+      curl -O https://download.qt.io/official_releases/online_installers/$(windowsFile)
+      set QT_VERSION=$(Qt)
+      set QT_COMPONENTS=$(windowsCompiler),qtscript, qtwebengine
+      set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
+      $(windowsFile) --platform minimal --no-force-installations --verbose --script $(script)
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
