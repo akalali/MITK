@@ -59,6 +59,7 @@ jobs:
   - script: |
       mkdir Qt
       curl -O https://download.qt.io/official_releases/online_installers/$(linuxFile)
+      sudo chmod +x ./qt-unified-linux-x64-online.run
       export QT_VERSION=$(Qt)
       export QT_COMPONENTS=$(linuxCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
