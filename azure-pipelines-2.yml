@@ -22,6 +22,8 @@ jobs:
       set QT_VERSION=$(Qt)
       set QT_COMPONENTS=$(windowsCompiler),qtscript, qtwebengine
       set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
+      ls -l
+      dir
       $(windowsFile) --platform minimal --no-force-installations --verbose --script $(script)
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
