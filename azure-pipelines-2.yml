@@ -58,11 +58,14 @@ jobs:
   steps:
   - script: |
       mkdir Qt
+      wget https://raw.githubusercontent.com/akalali/MITK/master/unattended_env.qs
       curl -O https://download.qt.io/official_releases/online_installers/$(linuxFile)
       sudo chmod +x ./qt-unified-linux-x64-online.run
       export QT_VERSION=$(Qt)
       export QT_COMPONENTS=$(linuxCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
+      ls -l
+      dir
       ./$(linuxFile) --platform minimal --no-force-installations --verbose --script $(script)
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
