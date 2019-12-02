@@ -58,8 +58,7 @@ jobs:
   steps:
   - script: |
       mkdir Qt
-      wget http://raw.githubusercontent.com/akalali/MITK/master/unattended_env.qs
-      curl -O http://download.qt.io/official_releases/online_installers/$(linuxFile)
+      curl -O -J -L http://download.qt.io/official_releases/online_installers/$(linuxFile)
       sudo chmod +x ./qt-unified-linux-x64-online.run
       export QT_VERSION=$(Qt)
       export QT_COMPONENTS=$(linuxCompiler),qtscript, qtwebengine
