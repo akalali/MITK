@@ -42,7 +42,7 @@ jobs:
   - script: |
       mkdir Qt
       curl -O -J -L http://download.qt.io/official_releases/online_installers/$(macFile)
-      chmod +x ./$(macFile)
+      chmod a+x ./$(macFile)
       export QT_VERSION=$(Qt)
       export QT_COMPONENTS=$(macCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
