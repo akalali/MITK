@@ -48,7 +48,6 @@ jobs:
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       hdiutil attach $(macFile)
       open -a /Volumes/qt-unified-mac-x64-3.1.1-online/qt-unified-mac-x64-3.1.1-online.app
-      hdiutil detach /Volumes/qt-unified-mac-x64-3.1.1-online/
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
 
