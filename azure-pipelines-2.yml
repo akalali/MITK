@@ -23,7 +23,7 @@ jobs:
   - script: |
       mkdir Qt
       curl -O -J -L http://download.qt.io/official_releases/online_installers/$(windowsFile)
-      chmod +x $(windowsFile)
+      sudo chmod +x $(windowsFile)
       set QT_VERSION=$(Qt)
       set QT_COMPONENTS=$(windowsCompiler),qtscript, qtwebengine
       set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
