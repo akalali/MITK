@@ -49,8 +49,9 @@ jobs:
       hdiutil attach $(macFile)
       sudo cp -R /Volumes/qt-unified-mac-x64-3.1.1-online/qt-unified-mac-x64-3.1.1-online.app /QtInstaller
       hdiutil detach /Volumes/qt-unified-mac-x64-3.1.1-online/
+      ls -l
+      dir
       open -a /QtInstaller/qt-unified-mac-x64-3.1.1-online.app
-      ./$(macFile) --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
 
