@@ -23,6 +23,7 @@ jobs:
   - script: |
       mkdir Qt
       curl -O -J -L http://download.qt.io/official_releases/online_installers/$(windowsFile)
+      sudo chmod +x $(windowsFile)
       set QT_VERSION=$(Qt)
       set QT_COMPONENTS=$(windowsCompiler),qtscript, qtwebengine
       set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
@@ -41,7 +42,6 @@ jobs:
   - script: |
       mkdir Qt
       curl -O -J -L http://download.qt.io/official_releases/online_installers/$(macFile)
-      chmod a+x ./$(macFile)
       export QT_VERSION=$(Qt)
       export QT_COMPONENTS=$(macCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
