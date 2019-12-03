@@ -17,12 +17,13 @@ jobs:
   displayName: Windows
   timeoutInMinutes: 0
   pool:
-    vmImage: 'vs2017-win2016 '
+    vmImage: 'vs2017-win2016'
 
   steps:
   - script: |
       mkdir Qt
-      curl -O http://download.qt.io/official_releases/online_installers/$(windowsFile)
+      curl -O -J -L http://download.qt.io/official_releases/online_installers/$(windowsFile)
+      chmod +x $(windowsFile)
       set QT_VERSION=$(Qt)
       set QT_COMPONENTS=$(windowsCompiler),qtscript, qtwebengine
       set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
@@ -40,7 +41,8 @@ jobs:
   steps:
   - script: |
       mkdir Qt
-      curl -O http://download.qt.io/official_releases/online_installers/$(macFile)
+      curl -O -J -L http://download.qt.io/official_releases/online_installers/$(macFile)
+      chmod +x ./$(macFile)
       export QT_VERSION=$(Qt)
       export QT_COMPONENTS=$(macCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
@@ -59,7 +61,7 @@ jobs:
   - script: |
       mkdir Qt
       curl -O -J -L http://download.qt.io/official_releases/online_installers/$(linuxFile)
-      sudo chmod +x ./qt-unified-linux-x64-online.run
+      sudo chmod +x ./$(linuxFile)
       export QT_VERSION=$(Qt)
       export QT_COMPONENTS=$(linuxCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
