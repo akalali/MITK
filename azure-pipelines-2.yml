@@ -26,7 +26,7 @@ jobs:
       set QT_VERSION=$(Qt)
       set QT_COMPONENTS=$(windowsCompiler),qtscript, qtwebengine
       set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
-      $(windowsFile) --platform minimal --no-force-installations --verbose --script $(script)
+      $(windowsFile) --platform minimal --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
 
@@ -44,7 +44,7 @@ jobs:
       export QT_VERSION=$(Qt)
       export QT_COMPONENTS=$(macCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
-      ./$(macFile) --platform minimal --no-force-installations --verbose --script $(script)
+      ./$(macFile) --platform minimal --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
 
@@ -65,6 +65,6 @@ jobs:
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       ls -l
       dir
-      ./$(linuxFile) --platform minimal --no-force-installations --verbose --script $(script)
+      ./$(linuxFile) --platform minimal --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
