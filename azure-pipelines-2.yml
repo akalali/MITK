@@ -47,6 +47,7 @@ jobs:
       export QT_COMPONENTS=$(macCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       hdiutil attach $(macFile)
+      mkdir QtInstaller
       sudo cp -R /Volumes/qt-unified-mac-x64-3.1.1-online/qt-unified-mac-x64-3.1.1-online.app /QtInstaller
       hdiutil detach /Volumes/qt-unified-mac-x64-3.1.1-online/
       ls -l
