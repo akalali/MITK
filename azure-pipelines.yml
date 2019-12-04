@@ -118,7 +118,7 @@ jobs:
   - task: CMake@1
     displayName: 'Configure MITK for $(BuildType)'
     inputs:
-      cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=(Agent.BuildDirectory)/Qt/build/$(Qt)/$(linuxCompiler)/lib/cmake/Qt5 -DBUILD_TESTING:BOOL=OFF'
+      cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=(Agent.BuildDirectory)/Qt/$(Qt)/$(linuxCompiler)/lib/cmake/Qt5 -DBUILD_TESTING:BOOL=OFF'
 
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
