@@ -28,6 +28,8 @@ jobs:
       set QT_COMPONENTS=$(windowsCompiler),qtscript,qtwebengine
       set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       $(windowsFile) --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
+      cd (Agent.BuildDirectory)/Qt/$(Qt)/$(windowsCompiler)/lib/cmake/Qt5
+      ls -l
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
 
@@ -48,6 +50,8 @@ jobs:
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       hdiutil attach $(macFile)
       open -a /Volumes/qt-unified-mac-x64-3.1.1-online/qt-unified-mac-x64-3.1.1-online.app --args --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
+      cd (Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5
+      ls -l
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
 
@@ -67,5 +71,7 @@ jobs:
       export QT_COMPONENTS=$(linuxCompiler),qtscript, qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       ./$(linuxFile) --platform minimal --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
+      cd (Agent.BuildDirectory)/Qt/$(Qt)/$(linuxCompiler)/lib/cmake/Qt5
+      ls -l
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
