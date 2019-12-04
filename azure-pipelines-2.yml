@@ -28,7 +28,7 @@ jobs:
       set QT_COMPONENTS=$(windowsCompiler),qtscript,qtwebengine
       set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       $(windowsFile) --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
-      cd $(Agent.BuildDirectory)/Qt/$(Qt)/$(windowsCompiler)/lib/cmake/Qt5
+      cd $(Agent.BuildDirectory)/Qt/$(Qt)/msvc2017_64/lib/cmake/Qt5
       ls -l
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
