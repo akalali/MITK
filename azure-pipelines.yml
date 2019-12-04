@@ -5,7 +5,12 @@ variables:
   JFlag: '-j 8'
   Makefiles: Unix Makefiles
   VisualStudio: Visual Studio 15 2017 Win64
+  windowsCompiler: win64_msvc2017_64
+  windowsFile: qt-unified-windows-x86-online.exe
+  linuxCompiler: gcc_64
+  linuxFile: qt-unified-linux-x64-online.run
   Qt: 5.12.6
+  script: unattended_env.qs
 
 jobs:
 # WINDOWS JOB DEFINITION
@@ -22,6 +27,17 @@ jobs:
         BuildType: Release
 
   steps:
+  - script: |
+      mkdir Qt
+      curl -O -J -L http://download.qt.io/official_releases/online_installers/$(windowsFile)
+      chmod +x $(windowsFile)
+      set QT_VERSION=$(Qt)
+      set QT_COMPONENTS=$(windowsCompiler),qtscript,qtwebengine
+      set QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
+      $(windowsFile) --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
+    workingDirectory: '$(Agent.BuildDirectory)'
+    displayName: 'Download and install Qt'
+
   - task: CMake@1
     displayName: 'Configure MITK for $(BuildType)'
     inputs:
@@ -89,17 +105,20 @@ jobs:
     displayName: 'Install prerequisites'
 
   - script: |
-      wget https://code.qt.io/cgit/qbs/qbs.git/plain/scripts/install-qt.sh
-      sudo chmod +x ./install-qt.sh
-      sudo ./install-qt.sh --version $(Qt) qtbase qtwebengine qtscript
-      cd /opt/Qt
-      ls -l
-    displayName: 'Install Qt'
+      mkdir Qt
+      curl -O -J -L http://download.qt.io/official_releases/online_installers/$(linuxFile)
+      sudo chmod +x ./$(linuxFile)
+      export QT_VERSION=$(Qt)
+      export QT_COMPONENTS=$(linuxCompiler),qtscript,qtwebengine
+      export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
+      ./$(linuxFile) --platform minimal --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
+    workingDirectory: '$(Agent.BuildDirectory)'
+    displayName: 'Download and install Qt'
 
   - task: CMake@1
     displayName: 'Configure MITK for $(BuildType)'
     inputs:
-      cmakeArgs: '..  -G"$(Makefiles)" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_CTK:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
+      cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=(Agent.BuildDirectory)/Qt/build/$(Qt)/$(linuxCompiler)/lib/cmake/Qt5 -DBUILD_TESTING:BOOL=OFF'
 
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
