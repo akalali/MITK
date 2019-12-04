@@ -41,7 +41,7 @@ jobs:
   - task: CMake@1
     displayName: 'Configure MITK for $(BuildType)'
     inputs:
-      cmakeArgs: '.. -G"$(VisualStudio)" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_CTK:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
+      cmakeArgs: '.. -G"$(VisualStudio)" -DQt5_DIR:PATH=(Agent.BuildDirectory)/Qt/$(Qt)/$(windowsCompiler)/lib/cmake/Qt5 -DBUILD_TESTING:BOOL=OFF'
 
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
