@@ -55,7 +55,7 @@ jobs:
       ls -l
       cd MacOS
       ls -l
-      open qt-unified-mac-x64-3.1.1-online.app/Contents/MacOS/qt-unified-mac-x64-3.1.1-online --args --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
+      open qt-unified-mac-x64-3.1.1-online --args --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
       cd $(Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5
       ls -l
     workingDirectory: '$(Agent.BuildDirectory)'
