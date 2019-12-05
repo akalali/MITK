@@ -62,6 +62,20 @@ jobs:
         BuildType: Release
 
   steps:
+  - script: |
+      mkdir Qt
+      curl -O -J -L http://download.qt.io/official_releases/online_installers/$(macFile)
+      sudo chmod +x ./$(macFile)
+      export QT_VERSION=$(Qt)
+      export QT_COMPONENTS=$(macCompiler),qtscript,qtwebengine
+      export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
+      hdiutil attach $(macFile)
+      cd /Volumes/qt-unified-mac-x64-3.1.1-online/qt-unified-mac-x64-3.1.1-online.app/Contents/MacOS
+      ./qt-unified-mac-x64-3.1.1-online --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
+      cd $(Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5
+    workingDirectory: '$(Agent.BuildDirectory)'
+    displayName: 'Download and install Qt'
+
   - task: CMake@1
     displayName: 'Configure MITK for $(BuildType)'
     inputs:
