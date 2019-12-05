@@ -123,4 +123,4 @@ jobs:
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
     inputs:
-      cmakeArgs: '--build . --config $(BuildType) $(JFlag)'
+      cmakeArgs: '--build . --config $(BuildType) --VERBOSE=1'
