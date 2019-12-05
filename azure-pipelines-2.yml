@@ -47,15 +47,8 @@ jobs:
       export QT_COMPONENTS=$(macCompiler),qtscript,qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       hdiutil attach $(macFile)
-      cd /Volumes/qt-unified-mac-x64-3.1.1-online/
-      ls -l
-      cd qt-unified-mac-x64-3.1.1-online.app
-      ls -l
-      cd Contents
-      ls -l
-      cd MacOS
-      ls -l
-      open qt-unified-mac-x64-3.1.1-online --args --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
+      cd /Volumes/qt-unified-mac-x64-3.1.1-online/qt-unified-mac-x64-3.1.1-online.app/Contents/MacOS
+      qt-unified-mac-x64-3.1.1-online --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
       cd $(Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5
       ls -l
     workingDirectory: '$(Agent.BuildDirectory)'
