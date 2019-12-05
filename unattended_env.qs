@@ -1,4 +1,5 @@
 function Controller() {
+  installer.autoAcceptMessageBoxes();
   gui.pageWidgetByObjectName("WelcomePage").completeChanged.connect(function() {
     gui.clickButton(buttons.NextButton);
   });
