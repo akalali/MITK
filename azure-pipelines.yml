@@ -7,6 +7,8 @@ variables:
   VisualStudio: Visual Studio 15 2017 Win64
   windowsCompiler: win64_msvc2017_64
   windowsFile: qt-unified-windows-x86-online.exe
+  macCompiler: clang_64
+  macFile: qt-unified-mac-x64-online.dmg
   linuxCompiler: gcc_64
   linuxFile: qt-unified-linux-x64-online.run
   Qt: 5.12.6
