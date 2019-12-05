@@ -44,11 +44,11 @@ jobs:
       curl -O -J -L http://download.qt.io/official_releases/online_installers/$(macFile)
       sudo chmod +x ./$(macFile)
       export QT_VERSION=$(Qt)
-      export QT_COMPONENTS=$(macCompiler),qtscript, qtwebengine
+      export QT_COMPONENTS=$(macCompiler),qtscript,qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       hdiutil attach $(macFile)
       cd /Volumes/qt-unified-mac-x64-3.1.1-online/
-      open qt-unified-mac-x64-3.1.1-online.app/Contents/Macos/qt-unified-mac-x64-3.1.1-online --args --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
+      open qt-unified-mac-x64-3.1.1-online.app/Contents/MacOS/qt-unified-mac-x64-3.1.1-online --args --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
       cd $(Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5
       ls -l
     workingDirectory: '$(Agent.BuildDirectory)'
@@ -67,7 +67,7 @@ jobs:
       curl -O -J -L http://download.qt.io/official_releases/online_installers/$(linuxFile)
       sudo chmod +x ./$(linuxFile)
       export QT_VERSION=$(Qt)
-      export QT_COMPONENTS=$(linuxCompiler),qtscript, qtwebengine
+      export QT_COMPONENTS=$(linuxCompiler),qtscript,qtwebengine
       export QT_TARGET_DIR=$(Agent.BuildDirectory)/Qt
       ./$(linuxFile) --platform minimal --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
     workingDirectory: '$(Agent.BuildDirectory)'
