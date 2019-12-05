@@ -48,7 +48,7 @@ jobs:
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
     inputs:
-      cmakeArgs: '--build . --target ALL_BUILD --config $(BuildType)'
+      cmakeArgs: '--build . --config $(BuildType)'
 
 # MACOS JOB DEFINITION
 - job:
@@ -74,14 +74,13 @@ jobs:
       hdiutil attach $(macFile)
       cd /Volumes/qt-unified-mac-x64-3.1.1-online/qt-unified-mac-x64-3.1.1-online.app/Contents/MacOS
       ./qt-unified-mac-x64-3.1.1-online --no-force-installations --verbose --script $(Agent.BuildDirectory)/s/$(script)
-      cd $(Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5
     workingDirectory: '$(Agent.BuildDirectory)'
     displayName: 'Download and install Qt'
 
   - task: CMake@1
     displayName: 'Configure MITK for $(BuildType)'
     inputs:
-      cmakeArgs: '..  -G"$(Makefiles)" -DMITK_USE_Qt5:BOOL=OFF -DMITK_USE_CTK:BOOL=OFF -DMITK_USE_BLUEBERRY:BOOL=OFF -DBUILD_TESTING:BOOL=OFF'
+      cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=$(Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5/ -DBUILD_TESTING:BOOL=OFF'
 
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
