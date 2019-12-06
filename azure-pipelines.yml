@@ -80,6 +80,11 @@ jobs:
   - task: CMake@1
     displayName: 'Configure MITK for $(BuildType)'
     inputs:
+      cmakeArgs: '..  -G"$(Makefiles)"'
+
+  - task: CMake@1
+    displayName: 'Generate MITK for $(BuildType)'
+    inputs:
       cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=$(Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5/ -DBUILD_TESTING:BOOL=OFF'
 
   - task: CMake@1
@@ -134,6 +139,11 @@ jobs:
     displayName: 'Configure MITK for $(BuildType)'
     inputs:
       cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=$(Agent.BuildDirectory)/Qt/$(Qt)/$(linuxCompiler)/lib/cmake/Qt5/ -DBUILD_TESTING:BOOL=OFF -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON'
+
+  - task: CMake@1
+    displayName: 'Build MITK for $(BuildType)'
+    inputs:
+      cmakeArgs: '--build . --config $(BuildType) $(JFlag)'
 
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
