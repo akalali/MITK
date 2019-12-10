@@ -41,9 +41,14 @@ jobs:
     displayName: 'Download and install Qt'
 
   - task: CMake@1
-    displayName: 'Configure MITK for $(BuildType)'
+    displayName: 'Configure MITK with Qt5 for $(BuildType)'
     inputs:
-      cmakeArgs: '.. -G"$(VisualStudio)" -DQt5_DIR:PATH=$(Agent.BuildDirectory)/Qt/$(Qt)/msvc2017_64/lib/cmake/Qt5/ -DBUILD_TESTING:BOOL=OFF'
+      cmakeArgs: '.. -G"$(VisualStudio)" -DQt5_DIR:PATH=$(Agent.BuildDirectory)/Qt/$(Qt)/msvc2017_64/lib/cmake/Qt5/'
+
+  - task: CMake@1
+    displayName: 'Generate MITK without testing for $(BuildType)'
+    inputs:
+      cmakeArgs: '.. -G"$(VisualStudio)" -DBUILD_TESTING:BOOL=OFF'
 
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
@@ -78,14 +83,15 @@ jobs:
     displayName: 'Download and install Qt'
 
   - task: CMake@1
-    displayName: 'Configure MITK for $(BuildType)'
+    displayName: 'Configure MITK with Qt5 for $(BuildType)'
     inputs:
-      cmakeArgs: '..  -G"$(Makefiles)"'
+      cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=$(Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5/'
 
   - task: CMake@1
-    displayName: 'Generate MITK for $(BuildType)'
+    displayName: 'Generate MITK without testing for $(BuildType)'
     inputs:
-      cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=$(Agent.BuildDirectory)/Qt/$(Qt)/$(macCompiler)/lib/cmake/Qt5/ -DBUILD_TESTING:BOOL=OFF'
+      cmakeArgs: '..  -G"$(Makefiles)" -DBUILD_TESTING:BOOL=OFF'
+
 
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
@@ -136,14 +142,15 @@ jobs:
     displayName: 'Download and install Qt'
 
   - task: CMake@1
-    displayName: 'Configure MITK for $(BuildType)'
+    displayName: 'Configure MITK with Qt5 for $(BuildType)'
     inputs:
-      cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=$(Agent.BuildDirectory)/Qt/$(Qt)/$(linuxCompiler)/lib/cmake/Qt5/ -DBUILD_TESTING:BOOL=OFF -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON'
+      cmakeArgs: '..  -G"$(Makefiles)" -DQt5_DIR:PATH=$(Agent.BuildDirectory)/Qt/$(Qt)/$(linuxCompiler)/lib/cmake/Qt5/'
 
   - task: CMake@1
-    displayName: 'Build MITK for $(BuildType)'
+    displayName: 'Generate MITK without testing for $(BuildType)'
     inputs:
-      cmakeArgs: '--build . --config $(BuildType) $(JFlag)'
+      cmakeArgs: '..  -G"$(Makefiles)" -DBUILD_TESTING:BOOL=OFF'
+
 
   - task: CMake@1
     displayName: 'Build MITK for $(BuildType)'
